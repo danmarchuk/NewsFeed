@@ -16,7 +16,37 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        // Create instances of the view controllers wrapped in navigation controllers
+        let firstVC = UINavigationController(rootViewController: ViewController())
+        let secondVC = UINavigationController(rootViewController: SearchViewController())
+        let thirdVC = UINavigationController(rootViewController: BellViewController())
+        let fourthVC = UINavigationController(rootViewController: SavedViewController())
+        
+        firstVC.tabBarItem.image = UIImage(named: "homeImage")?.withRenderingMode(.alwaysTemplate)
+        
+        secondVC.tabBarItem.image = UIImage(named: "searchImage")?.withRenderingMode(.alwaysTemplate)
+        
+        thirdVC.tabBarItem.image = UIImage(named: "bellImage")?.withRenderingMode(.alwaysTemplate)
+        
+        fourthVC.tabBarItem.image = UIImage(named: "savedImage")?.withRenderingMode(.alwaysTemplate)
+
+
+        // Set tab bar items, images, etc. for each navigation controller here if needed
+
+        let tabBarVC = UITabBarController()
+        tabBarVC.viewControllers = [firstVC, secondVC, thirdVC, fourthVC]
+        tabBarVC.tabBar.tintColor = .red // Or some other contrasting color
+        tabBarVC.tabBar.unselectedItemTintColor = .white // Or any other color
+
+
+        let window = UIWindow(windowScene: windowScene)
+        window.rootViewController = tabBarVC
+        window.backgroundColor = .clear
+        self.window = window
+        window.makeKeyAndVisible()
+
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

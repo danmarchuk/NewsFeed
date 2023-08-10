@@ -16,6 +16,16 @@
 		93E444252A83CF4900D3E6CE /* NewsFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E444242A83CF4900D3E6CE /* NewsFeedTests.swift */; };
 		93E4442F2A83CF4900D3E6CE /* NewsFeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E4442E2A83CF4900D3E6CE /* NewsFeedUITests.swift */; };
 		93E444312A83CF4900D3E6CE /* NewsFeedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E444302A83CF4900D3E6CE /* NewsFeedUITestsLaunchTests.swift */; };
+		93E4443E2A85155900D3E6CE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E4443D2A85155900D3E6CE /* Constants.swift */; };
+		93E444402A85169300D3E6CE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E4443F2A85169300D3E6CE /* Extensions.swift */; };
+		93E444422A8516BC00D3E6CE /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E444412A8516BC00D3E6CE /* MainView.swift */; };
+		93E444452A8516EC00D3E6CE /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 93E444442A8516EC00D3E6CE /* SnapKit */; };
+		93E4444A2A8517A700D3E6CE /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93E444472A8517A700D3E6CE /* Poppins-Regular.ttf */; };
+		93E4444B2A8517A700D3E6CE /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93E444482A8517A700D3E6CE /* Poppins-Bold.ttf */; };
+		93E4444C2A8517A700D3E6CE /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93E444492A8517A700D3E6CE /* Poppins-Medium.ttf */; };
+		93E4444E2A851EFE00D3E6CE /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E4444D2A851EFE00D3E6CE /* SearchViewController.swift */; };
+		93E444512A851F5D00D3E6CE /* BellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E444502A851F5D00D3E6CE /* BellViewController.swift */; };
+		93E444532A851F8D00D3E6CE /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E444522A851F8D00D3E6CE /* SavedViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +59,15 @@
 		93E4442A2A83CF4900D3E6CE /* NewsFeedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewsFeedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		93E4442E2A83CF4900D3E6CE /* NewsFeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedUITests.swift; sourceTree = "<group>"; };
 		93E444302A83CF4900D3E6CE /* NewsFeedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		93E4443D2A85155900D3E6CE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		93E4443F2A85169300D3E6CE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		93E444412A8516BC00D3E6CE /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		93E444472A8517A700D3E6CE /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		93E444482A8517A700D3E6CE /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
+		93E444492A8517A700D3E6CE /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		93E4444D2A851EFE00D3E6CE /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		93E444502A851F5D00D3E6CE /* BellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BellViewController.swift; sourceTree = "<group>"; };
+		93E444522A851F8D00D3E6CE /* SavedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93E444452A8516EC00D3E6CE /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,7 +121,11 @@
 			children = (
 				93E4440D2A83CF4700D3E6CE /* AppDelegate.swift */,
 				93E4440F2A83CF4700D3E6CE /* SceneDelegate.swift */,
-				93E444112A83CF4700D3E6CE /* ViewController.swift */,
+				93E4444F2A851F3E00D3E6CE /* Controller */,
+				93E4443F2A85169300D3E6CE /* Extensions.swift */,
+				93E4443D2A85155900D3E6CE /* Constants.swift */,
+				93E444412A8516BC00D3E6CE /* MainView.swift */,
+				93E444462A85178400D3E6CE /* Fonts */,
 				93E444132A83CF4700D3E6CE /* Main.storyboard */,
 				93E444162A83CF4900D3E6CE /* Assets.xcassets */,
 				93E444182A83CF4900D3E6CE /* LaunchScreen.storyboard */,
@@ -127,6 +151,27 @@
 			path = NewsFeedUITests;
 			sourceTree = "<group>";
 		};
+		93E444462A85178400D3E6CE /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				93E444482A8517A700D3E6CE /* Poppins-Bold.ttf */,
+				93E444492A8517A700D3E6CE /* Poppins-Medium.ttf */,
+				93E444472A8517A700D3E6CE /* Poppins-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		93E4444F2A851F3E00D3E6CE /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				93E444112A83CF4700D3E6CE /* ViewController.swift */,
+				93E4444D2A851EFE00D3E6CE /* SearchViewController.swift */,
+				93E444502A851F5D00D3E6CE /* BellViewController.swift */,
+				93E444522A851F8D00D3E6CE /* SavedViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,6 +188,9 @@
 			dependencies = (
 			);
 			name = NewsFeed;
+			packageProductDependencies = (
+				93E444442A8516EC00D3E6CE /* SnapKit */,
+			);
 			productName = NewsFeed;
 			productReference = 93E4440A2A83CF4700D3E6CE /* NewsFeed.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +263,9 @@
 				Base,
 			);
 			mainGroup = 93E444012A83CF4700D3E6CE;
+			packageReferences = (
+				93E444432A8516EC00D3E6CE /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 93E4440B2A83CF4700D3E6CE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -233,7 +284,10 @@
 			files = (
 				93E4441A2A83CF4900D3E6CE /* LaunchScreen.storyboard in Resources */,
 				93E444172A83CF4900D3E6CE /* Assets.xcassets in Resources */,
+				93E4444B2A8517A700D3E6CE /* Poppins-Bold.ttf in Resources */,
+				93E4444C2A8517A700D3E6CE /* Poppins-Medium.ttf in Resources */,
 				93E444152A83CF4700D3E6CE /* Main.storyboard in Resources */,
+				93E4444A2A8517A700D3E6CE /* Poppins-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,9 +312,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93E444402A85169300D3E6CE /* Extensions.swift in Sources */,
+				93E444512A851F5D00D3E6CE /* BellViewController.swift in Sources */,
+				93E4444E2A851EFE00D3E6CE /* SearchViewController.swift in Sources */,
+				93E444532A851F8D00D3E6CE /* SavedViewController.swift in Sources */,
+				93E444422A8516BC00D3E6CE /* MainView.swift in Sources */,
 				93E444122A83CF4700D3E6CE /* ViewController.swift in Sources */,
 				93E4440E2A83CF4700D3E6CE /* AppDelegate.swift in Sources */,
 				93E444102A83CF4700D3E6CE /* SceneDelegate.swift in Sources */,
+				93E4443E2A85155900D3E6CE /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -602,6 +662,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		93E444432A8516EC00D3E6CE /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		93E444442A8516EC00D3E6CE /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 93E444432A8516EC00D3E6CE /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 93E444022A83CF4700D3E6CE /* Project object */;
 }
