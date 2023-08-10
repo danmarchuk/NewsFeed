@@ -25,25 +25,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let fourthVC = UINavigationController(rootViewController: SavedViewController())
         
         firstVC.tabBarItem.image = UIImage(named: "homeImage")?.withRenderingMode(.alwaysTemplate)
-        
         secondVC.tabBarItem.image = UIImage(named: "searchImage")?.withRenderingMode(.alwaysTemplate)
-        
         thirdVC.tabBarItem.image = UIImage(named: "bellImage")?.withRenderingMode(.alwaysTemplate)
-        
         fourthVC.tabBarItem.image = UIImage(named: "savedImage")?.withRenderingMode(.alwaysTemplate)
 
-
         // Set tab bar items, images, etc. for each navigation controller here if needed
-
         let tabBarVC = UITabBarController()
         tabBarVC.viewControllers = [firstVC, secondVC, thirdVC, fourthVC]
         tabBarVC.tabBar.tintColor = .red // Or some other contrasting color
         tabBarVC.tabBar.unselectedItemTintColor = .white // Or any other color
+        tabBarVC.tabBar.barTintColor = K.backgroundGray
+        tabBarVC.tabBar.isTranslucent = false
 
 
         let window = UIWindow(windowScene: windowScene)
         window.rootViewController = tabBarVC
-        window.backgroundColor = .clear
+        window.backgroundColor = K.backgroundGray
         self.window = window
         window.makeKeyAndVisible()
 
