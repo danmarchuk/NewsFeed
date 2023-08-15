@@ -14,6 +14,9 @@ class ViewController: UIViewController, UICollectionViewDelegate {
     
     private var collectionView: UICollectionView!
     
+    private var articles: [ArticleInfo] = []
+
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +26,42 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         setupNavbar()
         setupTabBar()
         view.backgroundColor = K.backgroundGray
+        parseXmls()
+
+    }
+    
+    private func parseXmls() {
+        let manager = VergeParser()
+        manager.fetchAndParseFeed { items in
+            guard let feedItems = items else {return}
+            
+            for item in feedItems {
+                self.articles.append(item)
+            }
+            self.collectionView.reloadData()
+        }
+        
+        let nyTimesParser = NYTimesParser()
+        
+        nyTimesParser.fetchAndParseFeed { items in
+            guard let feedItems = items else {return}
+            
+            for item in feedItems {
+                self.articles.append(item)
+            }
+            self.collectionView.reloadData()
+        }
+        
+        let techCrunchParser = TechCrunchParser()
+        
+        techCrunchParser.fetchAndParseFeed { items in
+            guard let feedItems = items else {return}
+            
+            for item in feedItems {
+                self.articles.append(item)
+            }
+            self.collectionView.reloadData()
+        }
     }
     
     private func addElements() {
@@ -69,19 +108,17 @@ class ViewController: UIViewController, UICollectionViewDelegate {
 
 extension ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        12
+        articles.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsCell.identifier, for: indexPath) as? NewsCell else {
             return UICollectionViewCell()
         }
-        cell.configure(withTitle: "THIS IS THE TITLE THIS IS THE TITLE THIS IS THE TITLE THIS IS THE TITLE THIS IS THE TITLE THIS IS THE TITLE", dateAndSource: "fable - today", withImage: "https://cdn.cnn.com/cnnnext/dam/assets/221117142556-the-assignment-with-audie-cornish-live-video.jpg")
+        cell.configure(withTitle: articles[indexPath.row].title, dateAndSource: "\(articles[indexPath.row].source) - \(articles[indexPath.row].datePublished)", withImage: articles[indexPath.row].pictureLink)
         cell.backgroundColor = .clear
         return cell
     }
-    
-    
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout

@@ -57,7 +57,6 @@ final class NewsCell: UICollectionViewCell {
     
     private func setupView() {
         self.backgroundColor = .clear
-
         
         addSubview(dateAndSourceLabel)
         addSubview(titleLabel)
@@ -80,7 +79,7 @@ final class NewsCell: UICollectionViewCell {
             make.left.equalToSuperview()
             make.right.equalToSuperview()
             make.bottom.equalToSuperview()
-            
+            make.height.equalTo(200)
         }
         
         savedButton.snp.makeConstraints { make in
