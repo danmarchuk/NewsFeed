@@ -52,9 +52,9 @@ class ViewController: UIViewController, UICollectionViewDelegate {
             self.collectionView.reloadData()
         }
         
-        let techCrunchParser = TechCrunchParser()
+        let voxParser = VoxParser()
         
-        techCrunchParser.fetchAndParseFeed { items in
+        voxParser.fetchAndParseFeed { items in
             guard let feedItems = items else {return}
             
             for item in feedItems {
@@ -113,10 +113,10 @@ extension ViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsCell.identifier, for: indexPath) as? NewsCell else {
+            print("CELL FOR ITEM NOT WORKING")
             return UICollectionViewCell()
         }
         cell.configure(withTitle: articles[indexPath.row].title, dateAndSource: "\(articles[indexPath.row].source) - \(articles[indexPath.row].datePublished)", withImage: articles[indexPath.row].pictureLink)
-        cell.backgroundColor = .clear
         return cell
     }
 }
@@ -125,11 +125,11 @@ extension ViewController: UICollectionViewDataSource {
 
 extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
+
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.minimumLineSpacing = 20
         }
-        return CGSize(width: view.frame.size.width, height: view.frame.size.height / 1.5)
+        return CGSize(width: view.frame.size.width, height: view.frame.size.height / 2)
     }
 }
 

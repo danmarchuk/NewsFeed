@@ -1,18 +1,18 @@
 //
-//  VergeManager.swift
+//  TechCrunchParser.swift
 //  NewsFeed
 //
-//  Created by Данік on 10/08/2023.
+//  Created by Данік on 14/08/2023.
 //
 
+import Foundation
 import Alamofire
 import SwiftSoup
-import Foundation
 
-class VergeParser {
+class VoxParser {
     
     func fetchAndParseFeed(completion: @escaping ([ArticleInfo]?) -> Void) {
-        let url = "https://www.theverge.com/rss/index.xml"
+        let url = "https://www.vox.com/rss/index.xml"
         
         AF.request(url).responseString { response in
             guard let xml = response.value else {
@@ -27,19 +27,22 @@ class VergeParser {
     private func parseXML(xml: String) -> [ArticleInfo]? {
         do {
             let doc: Document = try SwiftSoup.parse(xml)
+            
             let entries = try doc.select("entry")
             var vergeArticles = [ArticleInfo]()
             
             for entry in entries {
                 let title = try entry.select("title").first()?.text() ?? ""
-                let link = try entry.select("id").first()?.text() ?? ""
-                let datePublishedStringFromXML = try entry.select("updated").first()?.text() ?? ""
-                let datePublished = FuncManager.iso8601StringToDate(datePublishedStringFromXML) ?? Date()
+
+                let datePublishedStringFromXML = try entry.select("published").first()?.text() ?? ""
+                let datePublished = FuncManager.convertToDate(from: datePublishedStringFromXML) ?? Date()
                 let datePublishedString = FuncManager.timeAgoString(from: datePublished, to: Date())
                 
+                let link = try entry.select("id").first()?.text() ?? ""
                 
-                var imageUrl = ""
                 var description = ""
+                var imageUrl = ""
+
                 let contentHtml = try entry.select("content").html()
                 
                 if let decodedContent = decodeHTMLEntities(string: contentHtml),
@@ -57,11 +60,10 @@ class VergeParser {
                             description += try paragraphs[i].text() + " "
                         }
                     }
-                    
                 }
-                
-                let vergeArticle = ArticleInfo(title: title, summary: description, pictureLink: imageUrl, articleLink: link, datePublished: datePublishedString, source: "verge")
-                vergeArticles.append(vergeArticle)
+
+                let nyTimesArticle = ArticleInfo(title: title, summary: description, pictureLink: imageUrl, articleLink: link, datePublished: datePublishedString, source: "Vox")
+                vergeArticles.append(nyTimesArticle)
             }
             return vergeArticles
         } catch {
@@ -86,8 +88,5 @@ class VergeParser {
 
         return attributedString.string
     }
-
 }
-
-
 

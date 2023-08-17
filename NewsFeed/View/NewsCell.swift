@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import SDWebImage
+import Kingfisher
 
 
 final class NewsCell: UICollectionViewCell {
@@ -35,7 +36,37 @@ final class NewsCell: UICollectionViewCell {
         $0.contentMode = .scaleAspectFill
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
-
+    
+    private let horizontalStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        stackView.spacing = 0
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    private let verticalStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        stackView.spacing = 12
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    private let mainStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        stackView.spacing = 12
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -51,40 +82,45 @@ final class NewsCell: UICollectionViewCell {
     func configure(withTitle title: String, dateAndSource: String, withImage image: String) {
         dateAndSourceLabel.text = dateAndSource
         titleLabel.text = title
-        imageView.sd_setImage(with: URL(string: image), completed: nil)
+        let placeholderImage = UIImage(named: "16and9")
+        imageView.kf.setImage(with: URL(string: image), placeholder: placeholderImage)
         setupView()
     }
+    
+    
     
     private func setupView() {
         self.backgroundColor = .clear
         
-        addSubview(dateAndSourceLabel)
-        addSubview(titleLabel)
-        addSubview(savedButton)
-        addSubview(imageView)
+        horizontalStackView.addArrangedSubview(dateAndSourceLabel)
+        horizontalStackView.addArrangedSubview(savedButton)
         
-        dateAndSourceLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(20)
-            make.left.equalToSuperview().offset(16)
+        verticalStackView.addArrangedSubview(horizontalStackView)
+        verticalStackView.addArrangedSubview(titleLabel)
+        verticalStackView.addArrangedSubview(imageView)
+        
+        mainStackView.addArrangedSubview(verticalStackView)
+        
+        addSubview(mainStackView)
+        
+        mainStackView.snp.makeConstraints { make in
+            make.left.right.bottom.top.equalToSuperview()
         }
         
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(dateAndSourceLabel.snp.bottom).offset(12)
-            make.left.equalTo(dateAndSourceLabel.snp.left)
-            make.right.equalToSuperview()
+        horizontalStackView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
         }
+        
         
         imageView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(40)
             make.left.equalToSuperview()
             make.right.equalToSuperview()
             make.bottom.equalToSuperview()
-            make.height.equalTo(200)
         }
         
+        // This constraint ensures the button does not get squashed in the stackView
         savedButton.snp.makeConstraints { make in
-            make.right.equalToSuperview().offset(16)
-            make.top.equalToSuperview().offset(16)
+            make.width.height.equalTo(40)
         }
     }
 }
