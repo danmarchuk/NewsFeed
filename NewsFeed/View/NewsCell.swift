@@ -57,8 +57,6 @@ final class NewsCell: UICollectionViewCell {
         setupView()
     }
     
-    
-    
     private func setupView() {
         self.backgroundColor = .clear
         
@@ -93,8 +91,6 @@ final class NewsCell: UICollectionViewCell {
         }
     }
 
-
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         print("imageView frame after layout: \(imageView.frame)")

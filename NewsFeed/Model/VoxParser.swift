@@ -56,7 +56,7 @@ class VoxParser {
                     let paragraphs = try? contentDoc.select("p")
 
                     if let paragraphs = paragraphs, paragraphs.count > 1 {
-                        for i in 0..<paragraphs.count - 1 { // Excluding the last paragraph
+                        for i in 0..<paragraphs.count {
                             description += try paragraphs[i].text() + " "
                         }
                     }
