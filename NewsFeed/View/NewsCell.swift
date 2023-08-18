@@ -26,6 +26,7 @@ final class NewsCell: UICollectionViewCell {
         $0.textColor = .white
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.numberOfLines = 0
+        $0.clipsToBounds = true
     }
     
     private let savedButton = UIButton().apply {
@@ -34,48 +35,17 @@ final class NewsCell: UICollectionViewCell {
 
     private let imageView = UIImageView().apply {
         $0.contentMode = .scaleAspectFill
+        $0.clipsToBounds = true
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private let horizontalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.alignment = .fill
-        stackView.distribution = .fill
-        stackView.spacing = 0
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
-    private let verticalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fill
-        stackView.spacing = 12
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
-    private let mainStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fill
-        stackView.spacing = 12
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setupView()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
         setupView()
     }
     
@@ -92,36 +62,42 @@ final class NewsCell: UICollectionViewCell {
     private func setupView() {
         self.backgroundColor = .clear
         
-        horizontalStackView.addArrangedSubview(dateAndSourceLabel)
-        horizontalStackView.addArrangedSubview(savedButton)
+        addSubview(dateAndSourceLabel)
+        addSubview(titleLabel)
+        addSubview(savedButton)
+        addSubview(imageView)
         
-        verticalStackView.addArrangedSubview(horizontalStackView)
-        verticalStackView.addArrangedSubview(titleLabel)
-        verticalStackView.addArrangedSubview(imageView)
-        
-        mainStackView.addArrangedSubview(verticalStackView)
-        
-        addSubview(mainStackView)
-        
-        mainStackView.snp.makeConstraints { make in
-            make.left.right.bottom.top.equalToSuperview()
-        }
-        
-        horizontalStackView.snp.makeConstraints { make in
+        dateAndSourceLabel.snp.makeConstraints { make in
             make.top.equalToSuperview()
+            make.left.equalToSuperview().offset(16)
         }
         
+        savedButton.snp.makeConstraints { make in
+            make.height.equalTo(40)
+            make.width.equalTo(72)
+            make.top.equalToSuperview()
+            make.right.equalToSuperview()
+        }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(savedButton.snp.bottom).offset(4)
+            make.left.equalTo(dateAndSourceLabel.snp.left)
+            make.right.equalToSuperview()
+        }
         
         imageView.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(8)
             make.left.equalToSuperview()
             make.right.equalToSuperview()
             make.bottom.equalToSuperview()
         }
-        
-        // This constraint ensures the button does not get squashed in the stackView
-        savedButton.snp.makeConstraints { make in
-            make.width.height.equalTo(40)
-        }
+    }
+
+
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        print("imageView frame after layout: \(imageView.frame)")
     }
 }
 

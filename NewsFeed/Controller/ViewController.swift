@@ -16,8 +16,6 @@ class ViewController: UIViewController, UICollectionViewDelegate {
     
     private var articles: [ArticleInfo] = []
 
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -27,7 +25,6 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         setupTabBar()
         view.backgroundColor = K.backgroundGray
         parseXmls()
-
     }
     
     private func parseXmls() {
@@ -113,7 +110,6 @@ extension ViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsCell.identifier, for: indexPath) as? NewsCell else {
-            print("CELL FOR ITEM NOT WORKING")
             return UICollectionViewCell()
         }
         cell.configure(withTitle: articles[indexPath.row].title, dateAndSource: "\(articles[indexPath.row].source) - \(articles[indexPath.row].datePublished)", withImage: articles[indexPath.row].pictureLink)
@@ -129,7 +125,21 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.minimumLineSpacing = 20
         }
-        return CGSize(width: view.frame.size.width, height: view.frame.size.height / 2)
+        return CGSize(width: view.frame.size.width, height: view.frame.size.height / 1.5)
+    }
+}
+
+// MARK: - didSelectRowAt
+
+extension ViewController {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let fullNewsViewController = FullNewsViewController()
+        let chosenNews = articles[indexPath.row]
+        fullNewsViewController.theNews = chosenNews
+        
+        let navController = UINavigationController(rootViewController: fullNewsViewController)
+        navController.modalPresentationStyle = .fullScreen
+        present(navController, animated: true)
     }
 }
 
