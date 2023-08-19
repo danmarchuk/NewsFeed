@@ -11,7 +11,7 @@ import SwiftSoup
 
 class VoxParser {
     
-    func fetchAndParseFeed(completion: @escaping ([ArticleInfo]?) -> Void) {
+    func fetchAndParseFeed(completion: @escaping ([Article]?) -> Void) {
         let url = "https://www.vox.com/rss/index.xml"
         
         AF.request(url).responseString { response in
@@ -24,12 +24,12 @@ class VoxParser {
         }
     }
     
-    private func parseXML(xml: String) -> [ArticleInfo]? {
+    private func parseXML(xml: String) -> [Article]? {
         do {
             let doc: Document = try SwiftSoup.parse(xml)
             
             let entries = try doc.select("entry")
-            var vergeArticles = [ArticleInfo]()
+            var vergeArticles = [Article]()
             
             for entry in entries {
                 let title = try entry.select("title").first()?.text() ?? ""
@@ -62,7 +62,7 @@ class VoxParser {
                     }
                 }
 
-                let nyTimesArticle = ArticleInfo(title: title, summary: description, pictureLink: imageUrl, articleLink: link, datePublished: datePublishedString, source: "Vox")
+                let nyTimesArticle = Article(title: title, summary: description, pictureLink: imageUrl, articleLink: link, datePublished: datePublishedString, source: "Vox")
                 vergeArticles.append(nyTimesArticle)
             }
             return vergeArticles

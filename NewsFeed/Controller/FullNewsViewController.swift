@@ -14,7 +14,7 @@ class FullNewsViewController: UIViewController  {
     private var bookmarkButton: UIBarButtonItem!
     
     let fullNewsView = NewsFullView()
-    var theNews: ArticleInfo = ArticleInfo(title: "", summary: "", pictureLink: "", articleLink: "", datePublished: "", source: "")
+    var theNews: Article = Article(title: "", summary: "", pictureLink: "", articleLink: "", datePublished: "", source: "", isSaved: false)
     
     override func loadView() {
         view = fullNewsView
@@ -25,7 +25,6 @@ class FullNewsViewController: UIViewController  {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupNavigationBar()
-        print(theNews.summary)
     }
     
     func setupNavigationBar() {

@@ -13,6 +13,7 @@ import Kingfisher
 
 final class NewsCell: UICollectionViewCell {
     static let identifier = "NewsCell"
+    var bookmarkTapped: ((Int) -> Void)?
 
     private let dateAndSourceLabel = UILabel().apply {
         $0.font = UIFont(name: "Poppins-Medium", size: 12)
@@ -29,8 +30,10 @@ final class NewsCell: UICollectionViewCell {
         $0.clipsToBounds = true
     }
     
-    private let savedButton = UIButton().apply {
-        $0.setImage(UIImage(named: "savedImage"), for: .normal)
+    let bookmarkButton = UIButton().apply {
+        let image = UIImage(named: "savedImage")?.withRenderingMode(.alwaysTemplate)
+        $0.setImage(image, for: .normal)
+        $0.tintColor = .white
     }
 
     private let imageView = UIImageView().apply {
@@ -49,28 +52,34 @@ final class NewsCell: UICollectionViewCell {
         setupView()
     }
     
-    func configure(withTitle title: String, dateAndSource: String, withImage image: String) {
+    func configure(withArticle article: Article, dateAndSource: String) {
         dateAndSourceLabel.text = dateAndSource
-        titleLabel.text = title
+        titleLabel.text = article.title
         let placeholderImage = UIImage(named: "16and9")
-        imageView.kf.setImage(with: URL(string: image), placeholder: placeholderImage)
-        setupView()
+        imageView.kf.setImage(with: URL(string: article.pictureLink), placeholder: placeholderImage)
+        bookmarkButton.tintColor = article.isSaved ? .red : .white
+    }
+    
+    @objc func bookmarkButtonAction(_ sender: UIButton) {
+        bookmarkTapped?(sender.tag)
     }
     
     private func setupView() {
         self.backgroundColor = .clear
         
         addSubview(dateAndSourceLabel)
+        addSubview(bookmarkButton)
         addSubview(titleLabel)
-        addSubview(savedButton)
         addSubview(imageView)
+        
+        bookmarkButton.addTarget(self, action: #selector(bookmarkButtonAction(_:)), for: .touchUpInside)
         
         dateAndSourceLabel.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.left.equalToSuperview().offset(16)
         }
         
-        savedButton.snp.makeConstraints { make in
+        bookmarkButton.snp.makeConstraints { make in
             make.height.equalTo(40)
             make.width.equalTo(72)
             make.top.equalToSuperview()
@@ -78,22 +87,21 @@ final class NewsCell: UICollectionViewCell {
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(savedButton.snp.bottom).offset(4)
+            make.top.equalTo(bookmarkButton.snp.bottom).offset(8)
             make.left.equalTo(dateAndSourceLabel.snp.left)
-            make.right.equalToSuperview()
+            make.right.equalToSuperview().inset(16)
         }
         
         imageView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(8)
             make.left.equalToSuperview()
             make.right.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.height.equalTo(300)
         }
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        print("imageView frame after layout: \(imageView.frame)")
     }
 }
 

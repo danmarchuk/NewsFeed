@@ -11,7 +11,7 @@ import SwiftSoup
 
 class NYTimesParser {
     
-    func fetchAndParseFeed(completion: @escaping ([ArticleInfo]?) -> Void) {
+    func fetchAndParseFeed(completion: @escaping ([Article]?) -> Void) {
         let url = "https://feeds.simplecast.com/54nAGcIl"
         
         AF.request(url).responseString { response in
@@ -24,7 +24,7 @@ class NYTimesParser {
         }
     }
     
-    private func parseXML(xml: String) -> [ArticleInfo]? {
+    private func parseXML(xml: String) -> [Article]? {
         do {
             let doc: Document = try SwiftSoup.parse(xml)
             
@@ -32,7 +32,7 @@ class NYTimesParser {
             
             // for now we return 10 items as there are a big amount of articles in the NY times
             let items = try doc.select("item").array().prefix(10)
-            var vergeArticles = [ArticleInfo]()
+            var vergeArticles = [Article]()
             
             for item in items {
                 let title = try item.select("title").first()?.text() ?? ""
@@ -44,7 +44,7 @@ class NYTimesParser {
                 
                 let description = try item.select("itunes|summary").first()?.text() ?? ""
                 
-                let nyTimesArticle = ArticleInfo(title: title, summary: description, pictureLink: imageUrl, articleLink: link, datePublished: datePublishedString, source: "The New York Times")
+                let nyTimesArticle = Article(title: title, summary: description, pictureLink: imageUrl, articleLink: link, datePublished: datePublishedString, source: "The New York Times")
                 vergeArticles.append(nyTimesArticle)
             }
             return vergeArticles

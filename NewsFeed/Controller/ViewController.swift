@@ -7,18 +7,26 @@
 
 import UIKit
 import SnapKit
+import CoreData
 
 class ViewController: UIViewController, UICollectionViewDelegate {
-
+    
     private let mainView = MainView()
     
     private var collectionView: UICollectionView!
     
-    private var articles: [ArticleInfo] = []
-
+    private var articles: [Article] = []
+    
+    let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        initialSetup()
+    }
+    
+    private func initialSetup() {
         configureCollectionView()
         addElements()
         setupNavbar()
@@ -28,6 +36,9 @@ class ViewController: UIViewController, UICollectionViewDelegate {
     }
     
     private func parseXmls() {
+        guard articles.isEmpty else {
+            loadArticlesFromCoreData()
+            return}
         let manager = VergeParser()
         manager.fetchAndParseFeed { items in
             guard let feedItems = items else {return}
@@ -35,7 +46,9 @@ class ViewController: UIViewController, UICollectionViewDelegate {
             for item in feedItems {
                 self.articles.append(item)
             }
-            self.collectionView.reloadData()
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
         }
         
         let nyTimesParser = NYTimesParser()
@@ -46,7 +59,9 @@ class ViewController: UIViewController, UICollectionViewDelegate {
             for item in feedItems {
                 self.articles.append(item)
             }
-            self.collectionView.reloadData()
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
         }
         
         let voxParser = VoxParser()
@@ -57,7 +72,13 @@ class ViewController: UIViewController, UICollectionViewDelegate {
             for item in feedItems {
                 self.articles.append(item)
             }
-            self.collectionView.reloadData()
+            
+            self.saveArticlesToCoreData()
+            self.loadArticlesFromCoreData()
+            
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
         }
     }
     
@@ -75,7 +96,7 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
-
+        
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(NewsCell.self, forCellWithReuseIdentifier: NewsCell.identifier)
         collectionView.dataSource = self
@@ -83,8 +104,8 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         collectionView.backgroundColor = .clear
         collectionView.translatesAutoresizingMaskIntoConstraints = false
     }
-
-
+    
+    
     private func setupNavbar() {
         navigationItem.titleView = mainView.navbarLabel
         let onePixelImage = UIImage(color: .white, size: CGSize(width: 1, height: 0.2))
@@ -93,13 +114,77 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         navigationController?.navigationBar.barTintColor = K.backgroundGray
         navigationController?.navigationBar.tintColor = K.backgroundGray
         navigationController?.navigationBar.shadowImage = onePixelImage
-//        navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+        //        navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
     }
-
+    
     
     private func setupTabBar() {
         tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 0)
+    }
+    
+    @objc func bookmarkButtonTappedAt(index: Int, sender: UIButton) {
+        articles[index].isSaved.toggle()
         
+        sender.tintColor =  articles[index].isSaved ? .red : .white
+        
+        updateArticleInCoreData(articles[index])
+    }
+    
+    func updateArticleInCoreData(_ article: Article) {
+        guard let context = self.context else {return}
+        
+        let fetchRequest: NSFetchRequest<ArticleEntity> = ArticleEntity.fetchRequest()
+        
+        fetchRequest.predicate = NSPredicate(format: "title == %@", article.title)
+        do {
+            let fetchedArticles = try context.fetch(fetchRequest)
+            
+            if let existingArticle = fetchedArticles.first {
+                existingArticle.isSaved = article.isSaved
+                try context.save()
+            }
+        } catch {
+        }
+    }
+    
+    func loadArticlesFromCoreData() {
+        guard let context = context else {return}
+        
+        let fetchRequest: NSFetchRequest<ArticleEntity> = ArticleEntity.fetchRequest()
+        do {
+            let fetchedArticles = try context.fetch(fetchRequest)
+            articles = fetchedArticles.map({ entity in
+                return Article(title: entity.title ?? "", summary: entity.summary ?? "", pictureLink: entity.pictureLink ?? "", articleLink: entity.articleLink ?? "", datePublished: entity.datePublished ?? "", source: entity.source ?? "")
+            })
+        } catch {
+        }
+    }
+    
+    func saveArticlesToCoreData() {
+        guard let context = context else {return}
+        
+        for article in articles {
+            let fetchRequest: NSFetchRequest<ArticleEntity> = ArticleEntity.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "title == %@", article.title)
+            
+            let existingArticles = try? context.fetch(fetchRequest)
+            if existingArticles?.isEmpty ?? true {
+                
+                let articleEntity = ArticleEntity(context: context)
+                articleEntity.title = article.title
+                articleEntity.summary = article.summary
+                articleEntity.datePublished = article.datePublished
+                articleEntity.isSaved = article.isSaved
+                articleEntity.pictureLink = article.pictureLink
+                articleEntity.source = article.source
+                articleEntity.articleLink = article.articleLink
+                do {
+                    try context.save()
+                }
+                catch {
+                }
+            }
+        }
     }
 }
 
@@ -112,7 +197,21 @@ extension ViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsCell.identifier, for: indexPath) as? NewsCell else {
             return UICollectionViewCell()
         }
-        cell.configure(withTitle: articles[indexPath.row].title, dateAndSource: "\(articles[indexPath.row].source) - \(articles[indexPath.row].datePublished)", withImage: articles[indexPath.row].pictureLink)
+        cell.configure(withArticle: articles[indexPath.row], dateAndSource: "\(articles[indexPath.row].source) - \(articles[indexPath.row].datePublished)")
+        
+        cell.bookmarkButton.tag = indexPath.row
+        
+        if articles[indexPath.row].isSaved {
+            cell.bookmarkButton.tintColor = .red
+            print(articles[indexPath.row].isSaved)
+        } else {
+            cell.bookmarkButton.tintColor = .white
+        }
+        
+        cell.bookmarkTapped = { [weak self] index in
+            self?.bookmarkButtonTappedAt(index: index, sender: cell.bookmarkButton)
+            
+        }
         return cell
     }
 }
@@ -121,7 +220,7 @@ extension ViewController: UICollectionViewDataSource {
 
 extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
+        
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.minimumLineSpacing = 20
         }

@@ -11,7 +11,7 @@ import Foundation
 
 class VergeParser {
     
-    func fetchAndParseFeed(completion: @escaping ([ArticleInfo]?) -> Void) {
+    func fetchAndParseFeed(completion: @escaping ([Article]?) -> Void) {
         let url = "https://www.theverge.com/rss/index.xml"
         
         AF.request(url).responseString { response in
@@ -24,11 +24,11 @@ class VergeParser {
         }
     }
     
-    private func parseXML(xml: String) -> [ArticleInfo]? {
+    private func parseXML(xml: String) -> [Article]? {
         do {
             let doc: Document = try SwiftSoup.parse(xml)
             let entries = try doc.select("entry")
-            var vergeArticles = [ArticleInfo]()
+            var vergeArticles = [Article]()
             
             for entry in entries {
                 let title = try entry.select("title").first()?.text() ?? ""
@@ -60,7 +60,7 @@ class VergeParser {
                     
                 }
                 
-                let vergeArticle = ArticleInfo(title: title, summary: description, pictureLink: imageUrl, articleLink: link, datePublished: datePublishedString, source: "verge")
+                let vergeArticle = Article(title: title, summary: description, pictureLink: imageUrl, articleLink: link, datePublished: datePublishedString, source: "verge")
                 vergeArticles.append(vergeArticle)
             }
             return vergeArticles
