@@ -10,7 +10,6 @@ import SnapKit
 import SDWebImage
 import Kingfisher
 
-
 final class NewsCell: UICollectionViewCell {
     static let identifier = "NewsCell"
     var bookmarkTapped: ((Int) -> Void)?
@@ -36,7 +35,7 @@ final class NewsCell: UICollectionViewCell {
         $0.tintColor = .white
     }
 
-    private let imageView = UIImageView().apply {
+    let imageView = UIImageView().apply {
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
         $0.translatesAutoresizingMaskIntoConstraints = false

@@ -19,7 +19,6 @@ class ViewController: UIViewController, UICollectionViewDelegate {
     
     let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -154,7 +153,7 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         do {
             let fetchedArticles = try context.fetch(fetchRequest)
             articles = fetchedArticles.map({ entity in
-                return Article(title: entity.title ?? "", summary: entity.summary ?? "", pictureLink: entity.pictureLink ?? "", articleLink: entity.articleLink ?? "", datePublished: entity.datePublished ?? "", source: entity.source ?? "")
+                return Article(title: entity.title ?? "", summary: entity.summary ?? "", pictureLink: entity.pictureLink ?? "", articleLink: entity.articleLink ?? "", datePublished: entity.datePublished ?? "", source: entity.source ?? "", isSaved: entity.isSaved )
             })
         } catch {
         }
@@ -203,7 +202,6 @@ extension ViewController: UICollectionViewDataSource {
         
         if articles[indexPath.row].isSaved {
             cell.bookmarkButton.tintColor = .red
-            print(articles[indexPath.row].isSaved)
         } else {
             cell.bookmarkButton.tintColor = .white
         }

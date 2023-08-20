@@ -8,11 +8,11 @@
 import Foundation
 
 struct Article {
-    let title: String
-    let summary: String
-    let pictureLink: String
-    let articleLink: String
-    let datePublished: String
-    let source: String
-    var isSaved: Bool = false
+    var title: String
+    var summary: String
+    var pictureLink: String
+    var articleLink: String
+    var datePublished: String
+    var source: String
+    var isSaved: Bool
 }
