@@ -12,7 +12,8 @@ struct Article {
     var summary: String
     var pictureLink: String
     var articleLink: String
-    var datePublished: String
+    var datePublishedString: String
     var source: String
     var isSaved: Bool
+    var datePublished: Date
 }

@@ -27,7 +27,7 @@ class FullArticleViewController: UIViewController  {
     override func loadView() {
         view = fullArticleView
         guard let unwrappedNews = theArticle else {return}
-        fullArticleView.configure(dateAndSource: "\(unwrappedNews.source) - \(unwrappedNews.datePublished)", withTitle: unwrappedNews.title, withUrl: unwrappedNews.articleLink, withImageUrl: unwrappedNews.pictureLink, withDescription: unwrappedNews.summary)
+        fullArticleView.configure(dateAndSource: "\(unwrappedNews.source) - \(unwrappedNews.datePublishedString)", withTitle: unwrappedNews.title, withUrl: unwrappedNews.articleLink, withImageUrl: unwrappedNews.pictureLink, withDescription: unwrappedNews.summary)
     }
     
     override func viewDidLoad() {

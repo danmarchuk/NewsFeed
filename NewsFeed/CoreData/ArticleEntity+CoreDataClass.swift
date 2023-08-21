@@ -2,7 +2,7 @@
 //  ArticleEntity+CoreDataClass.swift
 //  
 //
-//  Created by Данік on 19/08/2023.
+//  Created by Данік on 21/08/2023.
 //
 //
 

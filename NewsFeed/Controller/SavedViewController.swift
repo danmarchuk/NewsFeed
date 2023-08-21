@@ -38,7 +38,7 @@ class SavedViewController: UIViewController {
             guard let articleEntities = try context?.fetch(ArticleEntity.fetchRequest()) else {return}
             for articleEntity in articleEntities {
                 if articleEntity.isSaved {
-                    let article = Article(title: articleEntity.title ?? "", summary: articleEntity.summary ?? "", pictureLink: articleEntity.pictureLink ?? "", articleLink: articleEntity.articleLink ?? "", datePublished: articleEntity.datePublished ?? "", source: articleEntity.source ?? "", isSaved: articleEntity.isSaved)
+                    let article = Article(title: articleEntity.title ?? "", summary: articleEntity.summary ?? "", pictureLink: articleEntity.pictureLink ?? "", articleLink: articleEntity.articleLink ?? "", datePublishedString: articleEntity.datePublishedString ?? "", source: articleEntity.source ?? "", isSaved: articleEntity.isSaved, datePublished: articleEntity.datePublished ?? Date())
                     savedArticles.append(article)
                 }
             }
@@ -81,7 +81,7 @@ extension SavedViewController: UICollectionViewDelegate, UICollectionViewDataSou
             return UICollectionViewCell()
         }
         let currentArticle = savedArticles[indexPath.row]
-        cell.configure(withArticle: currentArticle, dateAndSource: "\(currentArticle.source) - \(currentArticle.datePublished)")
+        cell.configure(withArticle: currentArticle, dateAndSource: "\(currentArticle.source) - \(currentArticle.datePublishedString)")
         
         cell.bookmarkButton.tag = indexPath.row
         

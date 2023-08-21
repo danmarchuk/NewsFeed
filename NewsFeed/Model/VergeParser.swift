@@ -60,7 +60,7 @@ class VergeParser {
                     
                 }
                 
-                let vergeArticle = Article(title: title, summary: description, pictureLink: imageUrl, articleLink: link, datePublished: datePublishedString, source: "verge", isSaved: false)
+                let vergeArticle = Article(title: title, summary: description, pictureLink: imageUrl, articleLink: link, datePublishedString: datePublishedString, source: "verge", isSaved: false, datePublished: datePublished)
                 vergeArticles.append(vergeArticle)
             }
             return vergeArticles

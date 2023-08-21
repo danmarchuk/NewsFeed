@@ -100,6 +100,9 @@ class ViewController: UIViewController, UICollectionViewDelegate {
             
         }
         dispatchGroup.notify(queue: .main) {
+            // sort the articles
+            self.articles.sort{ $0.datePublished > $1.datePublished }
+            
             self.refreshControl.endRefreshing()
             self.collectionView.reloadData()
         }
@@ -146,7 +149,6 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         navigationController?.navigationBar.barTintColor = K.backgroundGray
         navigationController?.navigationBar.tintColor = K.backgroundGray
         navigationController?.navigationBar.shadowImage = onePixelImage
-        //        navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
     }
     
     
@@ -186,7 +188,7 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         do {
             let fetchedArticles = try context.fetch(fetchRequest)
             articles = fetchedArticles.map({ entity in
-                return Article(title: entity.title ?? "", summary: entity.summary ?? "", pictureLink: entity.pictureLink ?? "", articleLink: entity.articleLink ?? "", datePublished: entity.datePublished ?? "", source: entity.source ?? "", isSaved: entity.isSaved )
+                return Article(title: entity.title ?? "", summary: entity.summary ?? "", pictureLink: entity.pictureLink ?? "", articleLink: entity.articleLink ?? "", datePublishedString: entity.datePublishedString ?? "", source: entity.source ?? "", isSaved: entity.isSaved, datePublished: entity.datePublished ?? Date() )
             })
         } catch {
         }
@@ -205,11 +207,12 @@ class ViewController: UIViewController, UICollectionViewDelegate {
                 let articleEntity = ArticleEntity(context: context)
                 articleEntity.title = article.title
                 articleEntity.summary = article.summary
-                articleEntity.datePublished = article.datePublished
+                articleEntity.datePublishedString = article.datePublishedString
                 articleEntity.isSaved = article.isSaved
                 articleEntity.pictureLink = article.pictureLink
                 articleEntity.source = article.source
                 articleEntity.articleLink = article.articleLink
+                articleEntity.datePublished = article.datePublished
                 do {
                     try context.save()
                 }
@@ -229,7 +232,7 @@ extension ViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsCell.identifier, for: indexPath) as? NewsCell else {
             return UICollectionViewCell()
         }
-        cell.configure(withArticle: articles[indexPath.row], dateAndSource: "\(articles[indexPath.row].source) - \(articles[indexPath.row].datePublished)")
+        cell.configure(withArticle: articles[indexPath.row], dateAndSource: "\(articles[indexPath.row].source) - \(articles[indexPath.row].datePublishedString)")
         
         cell.bookmarkButton.tag = indexPath.row
         

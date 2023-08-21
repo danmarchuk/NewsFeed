@@ -2,7 +2,7 @@
 //  ArticleEntity+CoreDataProperties.swift
 //  
 //
-//  Created by Данік on 19/08/2023.
+//  Created by Данік on 21/08/2023.
 //
 //
 
@@ -16,12 +16,13 @@ extension ArticleEntity {
         return NSFetchRequest<ArticleEntity>(entityName: "ArticleEntity")
     }
 
-    @NSManaged public var title: String?
-    @NSManaged public var summary: String?
-    @NSManaged public var pictureLink: String?
     @NSManaged public var articleLink: String?
-    @NSManaged public var datePublished: String?
-    @NSManaged public var source: String?
+    @NSManaged public var datePublishedString: String?
     @NSManaged public var isSaved: Bool
+    @NSManaged public var pictureLink: String?
+    @NSManaged public var source: String?
+    @NSManaged public var summary: String?
+    @NSManaged public var title: String?
+    @NSManaged public var datePublished: Date?
 
 }

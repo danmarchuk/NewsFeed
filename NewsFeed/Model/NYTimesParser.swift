@@ -44,7 +44,7 @@ class NYTimesParser {
                 
                 let description = try item.select("itunes|summary").first()?.text() ?? ""
                 
-                let nyTimesArticle = Article(title: title, summary: description, pictureLink: imageUrl, articleLink: link, datePublished: datePublishedString, source: "The New York Times", isSaved: false)
+                let nyTimesArticle = Article(title: title, summary: description, pictureLink: imageUrl, articleLink: link, datePublishedString: datePublishedString, source: "The New York Times", isSaved: false, datePublished: datePublished)
                 vergeArticles.append(nyTimesArticle)
             }
             return vergeArticles

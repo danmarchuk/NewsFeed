@@ -2,7 +2,8 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22E261" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ArticleEntity" representedClassName=".ArticleEntity" syncable="YES">
         <attribute name="articleLink" optional="YES" attributeType="String"/>
-        <attribute name="datePublished" optional="YES" attributeType="String"/>
+        <attribute name="datePublished" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="datePublishedString" optional="YES" attributeType="String"/>
         <attribute name="isSaved" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="pictureLink" optional="YES" attributeType="String"/>
         <attribute name="source" optional="YES" attributeType="String"/>

@@ -62,7 +62,7 @@ class VoxParser {
                     }
                 }
 
-                let nyTimesArticle = Article(title: title, summary: description, pictureLink: imageUrl, articleLink: link, datePublished: datePublishedString, source: "Vox", isSaved: false)
+                let nyTimesArticle = Article(title: title, summary: description, pictureLink: imageUrl, articleLink: link, datePublishedString: datePublishedString, source: "Vox", isSaved: false, datePublished: datePublished)
                 vergeArticles.append(nyTimesArticle)
             }
             return vergeArticles
