@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 @IBDesignable
-class NewsFullView: UIView {
+class FullArticleView: UIView {
     
     init() {
         super.init(frame: UIScreen.main.bounds)
@@ -54,7 +54,7 @@ class NewsFullView: UIView {
         $0.clipsToBounds = true
     }
     
-    private let readInSourceLabel = UIButton().apply {
+    let readInSourceButton = UIButton().apply {
         let yourAttributes: [NSAttributedString.Key: Any] = [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
             NSAttributedString.Key.foregroundColor: UIColor.red,
@@ -101,7 +101,7 @@ class NewsFullView: UIView {
 
         contentContainerView.addSubview(dateAndSourceLabel)
         contentContainerView.addSubview(titleLabel)
-        contentContainerView.addSubview(readInSourceLabel)
+        contentContainerView.addSubview(readInSourceButton)
         contentContainerView.addSubview(imageView)
         contentContainerView.addSubview(descriptionLabel)
         
@@ -121,13 +121,13 @@ class NewsFullView: UIView {
             make.right.equalToSuperview().inset(16)
         }
         
-        readInSourceLabel.snp.makeConstraints { make in
+        readInSourceButton.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom)
             make.left.equalToSuperview().offset(16)
         }
         
         imageView.snp.makeConstraints { make in
-            make.top.equalTo(readInSourceLabel.snp.bottom).offset(12)
+            make.top.equalTo(readInSourceButton.snp.bottom).offset(12)
             make.left.equalToSuperview()
             make.right.equalToSuperview()
             make.height.equalTo(200)

@@ -27,6 +27,12 @@ class SavedViewController: UIViewController {
         addElements()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        savedArticles.removeAll()
+        fetchArticles()
+    }
+    
     func fetchArticles() {
         do {
             guard let articleEntities = try context?.fetch(ArticleEntity.fetchRequest()) else {return}
@@ -83,17 +89,13 @@ extension SavedViewController: UICollectionViewDelegate, UICollectionViewDataSou
         
         if currentArticle.isSaved == true {
             cell.bookmarkButton.tintColor = .red
-            print("THIS ARTICLE WAS SAWVED")
             print(savedArticles[indexPath.row].isSaved)
         } else {
             cell.bookmarkButton.tintColor = .white
         }
         
         cell.imageView.isHidden = true
-        
-//        cell.bookmarkTapped = { [weak self] index in
-//            self?.bookmarkButtonTappedAt(index: index, sender: cell.bookmarkButton)
-//        }
+    
         return cell
     }
 }

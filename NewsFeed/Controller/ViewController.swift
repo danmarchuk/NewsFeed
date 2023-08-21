@@ -8,16 +8,15 @@
 import UIKit
 import SnapKit
 import CoreData
+import Reachability
 
 class ViewController: UIViewController, UICollectionViewDelegate {
     
     private let mainView = MainView()
-    
-    private var collectionView: UICollectionView!
-    
     private var articles: [Article] = []
-    
     let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
+    private var collectionView: UICollectionView!
+    private let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +26,7 @@ class ViewController: UIViewController, UICollectionViewDelegate {
     
     private func initialSetup() {
         configureCollectionView()
+        setupRefreshControll()
         addElements()
         setupNavbar()
         setupTabBar()
@@ -34,10 +34,39 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         parseXmls()
     }
     
+    private func internetIsUnavailable() {
+        // if there is no internet load from the memory
+        loadArticlesFromCoreData()
+        if articles.isEmpty {
+            // if there are no internet and no saved core data
+            displayNoInternetMessage()
+        } else {
+            collectionView.reloadData()
+        }
+    }
+    
+    private func displayNoInternetMessage() {
+        let alert = UIAlertController(title: "No Internet Connection", message: "Please find an internet connection.", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func isInternetAvailable() -> Bool {
+        let reachability = try! Reachability()
+        return reachability.connection != .unavailable
+    }
+    
     private func parseXmls() {
-        guard articles.isEmpty else {
-            loadArticlesFromCoreData()
-            return}
+        
+        if !isInternetAvailable() {
+            internetIsUnavailable()
+            return
+        }
+        
+        let dispatchGroup = DispatchGroup()
+        
+        dispatchGroup.enter()
         let manager = VergeParser()
         manager.fetchAndParseFeed { items in
             guard let feedItems = items else {return}
@@ -45,40 +74,44 @@ class ViewController: UIViewController, UICollectionViewDelegate {
             for item in feedItems {
                 self.articles.append(item)
             }
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
+            dispatchGroup.leave()
         }
         
+        dispatchGroup.enter()
         let nyTimesParser = NYTimesParser()
-        
         nyTimesParser.fetchAndParseFeed { items in
             guard let feedItems = items else {return}
             
             for item in feedItems {
                 self.articles.append(item)
             }
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
+            dispatchGroup.leave()
         }
         
+        dispatchGroup.enter()
         let voxParser = VoxParser()
-        
         voxParser.fetchAndParseFeed { items in
-            guard let feedItems = items else {return}
-            
-            for item in feedItems {
-                self.articles.append(item)
+            if let feedItems = items {
+                self.articles.append(contentsOf: feedItems)
+                self.saveArticlesToCoreData()
+                self.loadArticlesFromCoreData()
             }
+            dispatchGroup.leave()
             
-            self.saveArticlesToCoreData()
-            self.loadArticlesFromCoreData()
-            
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
         }
+        dispatchGroup.notify(queue: .main) {
+            self.refreshControl.endRefreshing()
+            self.collectionView.reloadData()
+        }
+    }
+    
+    private func setupRefreshControll() {
+        collectionView.addSubview(refreshControl)
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+    }
+    
+    @objc func refreshData(_ sender: UIRefreshControl) {
+        parseXmls()
     }
     
     private func addElements() {
@@ -230,13 +263,22 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
 
 extension ViewController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let fullNewsViewController = FullNewsViewController()
+        let fullNewsViewController = FullArticleViewController()
         let chosenNews = articles[indexPath.row]
-        fullNewsViewController.theNews = chosenNews
+        fullNewsViewController.theArticle = chosenNews
+        fullNewsViewController.delegate = self
         
         let navController = UINavigationController(rootViewController: fullNewsViewController)
         navController.modalPresentationStyle = .fullScreen
         present(navController, animated: true)
+    }
+}
+
+extension ViewController: FullNewsViewControllerDelegate {
+    func didUpdateTheNews(_ fullNewsViewController: FullArticleViewController, theArticle: Article) {
+        updateArticleInCoreData(theArticle)
+        loadArticlesFromCoreData()
+        collectionView.reloadData()
     }
 }
 
