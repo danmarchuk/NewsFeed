@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SnapKit
 
 final class SavedViewController: UIViewController {
     
@@ -68,6 +69,7 @@ final class SavedViewController: UIViewController {
         collectionView.snp.makeConstraints { make in
             make.top.bottom.left.right.equalToSuperview()
         }
+        
     }
 }
 
@@ -89,6 +91,13 @@ extension SavedViewController: UICollectionViewDelegate, UICollectionViewDataSou
             cell.bookmarkButton.tintColor = .red
         } else {
             cell.bookmarkButton.tintColor = .white
+        }
+        
+        cell.titleLabel.snp.remakeConstraints { make in
+            make.top.equalTo(cell.bookmarkButton.snp.bottom).offset(8)
+            make.left.equalToSuperview().offset(16)
+            make.bottom.equalToSuperview()
+            make.right.equalToSuperview().inset(16)
         }
         
         cell.imageView.isHidden = true

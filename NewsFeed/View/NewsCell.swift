@@ -20,7 +20,7 @@ final class NewsCell: UICollectionViewCell {
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
 
-    private let titleLabel = UILabel().apply {
+    let titleLabel = UILabel().apply {
         $0.textAlignment = .left
         $0.font = UIFont(name: "Poppins-Bold", size: 24)
         $0.textColor = .white
@@ -96,6 +96,7 @@ final class NewsCell: UICollectionViewCell {
             make.left.equalToSuperview()
             make.right.equalToSuperview()
             make.height.equalTo(300)
+            make.bottom.equalToSuperview()
         }
     }
 
