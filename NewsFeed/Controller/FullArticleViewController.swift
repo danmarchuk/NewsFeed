@@ -38,6 +38,7 @@ final class FullArticleViewController: UIViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        setupInterstitialAdd()
         setupNavigationBar()
         setupReadInSourceButton()
         displayTheAddEachSecondTime()
@@ -50,7 +51,9 @@ final class FullArticleViewController: UIViewController  {
         let openCount = defaults.integer(forKey: "openCount")
         if openCount>=2 {
             defaults.set(0, forKey: "openCount")
-            showAnAdd()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                self.showAnAdd()
+            }
         }
     }
     
@@ -71,7 +74,6 @@ final class FullArticleViewController: UIViewController  {
             interstitial?.fullScreenContentDelegate = self}
         )
     }
-    
     
     @objc func readInSourceButtonTapped (_ sender: UIButton) {
         guard let unwrappedNews = theArticle else {return}
@@ -119,9 +121,26 @@ final class FullArticleViewController: UIViewController  {
 extension FullArticleViewController: GADFullScreenContentDelegate {
     private func showAnAdd() {
         if interstitial != nil {
+            print("AD isn't nil")
             interstitial?.present(fromRootViewController: self)
         } else {
           print("Ad wasn't ready")
         }
     }
+    
+    /// Tells the delegate that the ad failed to present full screen content.
+    func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
+      print("Ad did fail to present full screen content.")
+    }
+
+    /// Tells the delegate that the ad will present full screen content.
+    func adWillPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+      print("Ad will present full screen content.")
+    }
+
+    /// Tells the delegate that the ad dismissed full screen content.
+    func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+      print("Ad did dismiss full screen content.")
+    }
+    
 }

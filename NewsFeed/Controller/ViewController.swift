@@ -30,7 +30,6 @@ final class ViewController: UIViewController, UICollectionViewDelegate {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
     }
     
     func addBannerViewToView(_ bannerView: GADBannerView) {
@@ -149,7 +148,6 @@ final class ViewController: UIViewController, UICollectionViewDelegate {
     
     private func addElements() {
         view.addSubview(collectionView)
-        
 //         Setup collectionView constraints
         collectionView.snp.makeConstraints { make in
             make.top.bottom.left.right.equalToSuperview()
@@ -180,7 +178,6 @@ final class ViewController: UIViewController, UICollectionViewDelegate {
         navigationController?.navigationBar.tintColor = K.backgroundGray
         navigationController?.navigationBar.shadowImage = onePixelImage
     }
-    
     
     private func setupTabBar() {
         tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 0)
@@ -316,6 +313,8 @@ extension ViewController: FullNewsViewControllerDelegate {
     }
 }
 
+// MARK: - GADBannerViewDelegate
+// left the print statements for testing ads, I am abroad so they don't always work
 extension ViewController: GADBannerViewDelegate {
     
     func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {

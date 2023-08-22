@@ -8,7 +8,7 @@
 import XCTest
 
 
-class NewsFeedUITests: XCTestCase {
+final class NewsFeedUITests: XCTestCase {
 
     var app: XCUIApplication!
     
