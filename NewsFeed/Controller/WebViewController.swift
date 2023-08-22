@@ -45,6 +45,7 @@ final class WebViewController: UIViewController {
     func setupNavigationBar() {
         xButton = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(xButtonkButtonTapped))
         xButton.tintColor = .white
+        xButton.accessibilityIdentifier = "xButton"
         navigationItem.rightBarButtonItem = xButton
     }
     

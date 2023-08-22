@@ -12,7 +12,7 @@
 		9358C0F32A89322C00639C5E /* FuncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9358C0F22A89322C00639C5E /* FuncManager.swift */; };
 		938ADCC92A856D7400281429 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938ADCC82A856D7400281429 /* Article.swift */; };
 		938ADCCB2A856D9200281429 /* VergeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938ADCCA2A856D9200281429 /* VergeParser.swift */; };
-		938ADCD12A85840C00281429 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 938ADCD02A85840C00281429 /* Alamofire */; };
+		93AE02B12A94427C003CD7F2 /* NewsFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E444242A83CF4900D3E6CE /* NewsFeedTests.swift */; };
 		93C223232A8A92E600F6C73D /* NYTimesParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C223222A8A92E600F6C73D /* NYTimesParser.swift */; };
 		93C223252A8AD13500F6C73D /* VoxParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C223242A8AD13500F6C73D /* VoxParser.swift */; };
 		93E4440E2A83CF4700D3E6CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E4440D2A83CF4700D3E6CE /* AppDelegate.swift */; };
@@ -21,13 +21,11 @@
 		93E444152A83CF4700D3E6CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93E444132A83CF4700D3E6CE /* Main.storyboard */; };
 		93E444172A83CF4900D3E6CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93E444162A83CF4900D3E6CE /* Assets.xcassets */; };
 		93E4441A2A83CF4900D3E6CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93E444182A83CF4900D3E6CE /* LaunchScreen.storyboard */; };
-		93E444252A83CF4900D3E6CE /* NewsFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E444242A83CF4900D3E6CE /* NewsFeedTests.swift */; };
 		93E4442F2A83CF4900D3E6CE /* NewsFeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E4442E2A83CF4900D3E6CE /* NewsFeedUITests.swift */; };
 		93E444312A83CF4900D3E6CE /* NewsFeedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E444302A83CF4900D3E6CE /* NewsFeedUITestsLaunchTests.swift */; };
 		93E4443E2A85155900D3E6CE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E4443D2A85155900D3E6CE /* Constants.swift */; };
 		93E444402A85169300D3E6CE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E4443F2A85169300D3E6CE /* Extensions.swift */; };
 		93E444422A8516BC00D3E6CE /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E444412A8516BC00D3E6CE /* MainView.swift */; };
-		93E444452A8516EC00D3E6CE /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 93E444442A8516EC00D3E6CE /* SnapKit */; };
 		93E4444A2A8517A700D3E6CE /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93E444472A8517A700D3E6CE /* Poppins-Regular.ttf */; };
 		93E4444B2A8517A700D3E6CE /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93E444482A8517A700D3E6CE /* Poppins-Bold.ttf */; };
 		93E4444C2A8517A700D3E6CE /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93E444492A8517A700D3E6CE /* Poppins-Medium.ttf */; };
@@ -35,8 +33,6 @@
 		93E444512A851F5D00D3E6CE /* BellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E444502A851F5D00D3E6CE /* BellViewController.swift */; };
 		93E444532A851F8D00D3E6CE /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E444522A851F8D00D3E6CE /* SavedViewController.swift */; };
 		93E444552A8531B200D3E6CE /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E444542A8531B200D3E6CE /* NewsCell.swift */; };
-		93E444582A85321900D3E6CE /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 93E444572A85321900D3E6CE /* SDWebImage */; };
-		93EEBEDC2A8EDB9A0041314B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 93EEBEDB2A8EDB9A0041314B /* Kingfisher */; };
 		93EEBEDE2A8EF1C40041314B /* FullArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EEBEDD2A8EF1C40041314B /* FullArticleView.swift */; };
 		93EEBEE02A8EF5F80041314B /* FullArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EEBEDF2A8EF5F80041314B /* FullArticleViewController.swift */; };
 		93EEBEE42A90DDED0041314B /* NewsFeedDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93EEBEE22A90DDED0041314B /* NewsFeedDataModel.xcdatamodeld */; };
@@ -114,11 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93E444582A85321900D3E6CE /* SDWebImage in Frameworks */,
-				938ADCD12A85840C00281429 /* Alamofire in Frameworks */,
-				93E444452A8516EC00D3E6CE /* SnapKit in Frameworks */,
 				F5798C0784103734CB0709F5 /* Pods_NewsFeed.framework in Frameworks */,
-				93EEBEDC2A8EDB9A0041314B /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,10 +289,6 @@
 			);
 			name = NewsFeed;
 			packageProductDependencies = (
-				93E444442A8516EC00D3E6CE /* SnapKit */,
-				93E444572A85321900D3E6CE /* SDWebImage */,
-				938ADCD02A85840C00281429 /* Alamofire */,
-				93EEBEDB2A8EDB9A0041314B /* Kingfisher */,
 			);
 			productName = NewsFeed;
 			productReference = 93E4440A2A83CF4700D3E6CE /* NewsFeed.app */;
@@ -378,10 +366,6 @@
 			);
 			mainGroup = 93E444012A83CF4700D3E6CE;
 			packageReferences = (
-				93E444432A8516EC00D3E6CE /* XCRemoteSwiftPackageReference "SnapKit" */,
-				93E444562A85321900D3E6CE /* XCRemoteSwiftPackageReference "SDWebImage" */,
-				938ADCCF2A85840C00281429 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				93EEBEDA2A8EDB9A0041314B /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 93E4440B2A83CF4700D3E6CE /* Products */;
 			projectDirPath = "";
@@ -560,7 +544,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93E444252A83CF4900D3E6CE /* NewsFeedTests.swift in Sources */,
+				93AE02B12A94427C003CD7F2 /* NewsFeedTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -738,7 +722,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -768,7 +752,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -792,7 +776,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 63ZB4894ZK;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.testapp.NewsFeedTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -813,7 +797,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 63ZB4894ZK;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.testapp.NewsFeedTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -833,6 +817,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 63ZB4894ZK;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.testapp.NewsFeedUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -852,6 +837,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 63ZB4894ZK;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.testapp.NewsFeedUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -902,64 +888,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		938ADCCF2A85840C00281429 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-		93E444432A8516EC00D3E6CE /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-		93E444562A85321900D3E6CE /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-		93EEBEDA2A8EDB9A0041314B /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		938ADCD02A85840C00281429 /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 938ADCCF2A85840C00281429 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
-		93E444442A8516EC00D3E6CE /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 93E444432A8516EC00D3E6CE /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-		93E444572A85321900D3E6CE /* SDWebImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 93E444562A85321900D3E6CE /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImage;
-		};
-		93EEBEDB2A8EDB9A0041314B /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 93EEBEDA2A8EDB9A0041314B /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		93EEBEE22A90DDED0041314B /* NewsFeedDataModel.xcdatamodeld */ = {

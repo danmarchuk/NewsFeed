@@ -139,7 +139,7 @@ final class ViewController: UIViewController, UICollectionViewDelegate {
     }
     
     private func setupRefreshControll() {
-//        collectionView.addSubview(refreshControl)
+        collectionView.addSubview(refreshControl)
         refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
     }
     
@@ -311,6 +311,7 @@ extension ViewController: FullNewsViewControllerDelegate {
     func didUpdateTheNews(_ fullNewsViewController: FullArticleViewController, theArticle: Article) {
         updateArticleInCoreData(theArticle)
         loadArticlesFromCoreData()
+        articles.sort{ $0.datePublished > $1.datePublished }
         collectionView.reloadData()
     }
 }

@@ -65,6 +65,7 @@ class FullArticleView: UIView {
               attributes: yourAttributes
             )
         $0.setAttributedTitle(attributeString, for: .normal)
+        $0.accessibilityIdentifier = "readInSourceButton"
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     

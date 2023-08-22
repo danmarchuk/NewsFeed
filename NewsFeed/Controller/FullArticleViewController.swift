@@ -89,6 +89,9 @@ final class FullArticleViewController: UIViewController  {
         backButton = UIBarButtonItem(image: UIImage(named: "backArrow"), style: .plain, target: self, action: #selector(backButtonTapped))
         bookmarkButton = UIBarButtonItem(image: UIImage(named: "savedImage"), style: .plain, target: self, action: #selector(bookmarkButtonTapped))
         
+        backButton.accessibilityIdentifier = "backArrowButton"
+        bookmarkButton.accessibilityIdentifier = "bookmarkButton"
+        
         backButton.tintColor = .white
         bookmarkButton.tintColor = unwrappedNews.isSaved ? .red : .white
         

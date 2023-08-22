@@ -57,7 +57,6 @@ final class VergeParser {
                             description += try paragraphs[i].text() + " "
                         }
                     }
-                    
                 }
                 
                 let vergeArticle = Article(title: title, summary: description, pictureLink: imageUrl, articleLink: link, datePublishedString: datePublishedString, source: "verge", isSaved: false, datePublished: datePublished)

@@ -87,7 +87,6 @@ extension SavedViewController: UICollectionViewDelegate, UICollectionViewDataSou
                 
         if currentArticle.isSaved == true {
             cell.bookmarkButton.tintColor = .red
-            print(savedArticles[indexPath.row].isSaved)
         } else {
             cell.bookmarkButton.tintColor = .white
         }
