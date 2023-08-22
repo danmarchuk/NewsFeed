@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import GoogleMobileAds
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
+        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [ GADSimulatorID ]
+//        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [ "bfee6df1acbb312160522d3c6f383405" ]
+//        GADMobileAds
+
         return true
     }
 

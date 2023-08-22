@@ -9,8 +9,9 @@ import UIKit
 import SnapKit
 import CoreData
 import Reachability
+import GoogleMobileAds
 
-class ViewController: UIViewController, UICollectionViewDelegate {
+final class ViewController: UIViewController, UICollectionViewDelegate {
     
     private let mainView = MainView()
     private var articles: [Article] = []
@@ -18,11 +19,28 @@ class ViewController: UIViewController, UICollectionViewDelegate {
     private var collectionView: UICollectionView!
     private let refreshControl = UIRefreshControl()
     
+    // Google mobile ads
+    var bannerView: GADBannerView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         initialSetup()
     }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+    }
+    
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+      bannerView.translatesAutoresizingMaskIntoConstraints = false
+      view.addSubview(bannerView)
+        bannerView.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.centerX.equalTo(view)
+        }
+     }
     
     private func initialSetup() {
         configureCollectionView()
@@ -32,6 +50,18 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         setupTabBar()
         view.backgroundColor = K.backgroundGray
         parseXmls()
+        configureTheBannerView()
+    }
+    
+    private func configureTheBannerView() {
+        bannerView = GADBannerView(adSize: GADAdSizeBanner)
+        addBannerViewToView(bannerView)
+        
+        bannerView.adUnitID = "ca-app-pub-5950465833598200/5126020044"
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
+        bannerView.backgroundColor = .white
+        bannerView.delegate = self
     }
     
     private func internetIsUnavailable() {
@@ -109,7 +139,7 @@ class ViewController: UIViewController, UICollectionViewDelegate {
     }
     
     private func setupRefreshControll() {
-        collectionView.addSubview(refreshControl)
+//        collectionView.addSubview(refreshControl)
         refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
     }
     
@@ -120,7 +150,7 @@ class ViewController: UIViewController, UICollectionViewDelegate {
     private func addElements() {
         view.addSubview(collectionView)
         
-        // Setup collectionView constraints
+//         Setup collectionView constraints
         collectionView.snp.makeConstraints { make in
             make.top.bottom.left.right.equalToSuperview()
         }
@@ -285,3 +315,29 @@ extension ViewController: FullNewsViewControllerDelegate {
     }
 }
 
+extension ViewController: GADBannerViewDelegate {
+    
+    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+      print("bannerViewDidReceiveAd")
+    }
+
+    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
+      print("bannerView:didFailToReceiveAdWithError: \(error.localizedDescription)")
+    }
+
+    func bannerViewDidRecordImpression(_ bannerView: GADBannerView) {
+      print("bannerViewDidRecordImpression")
+    }
+
+    func bannerViewWillPresentScreen(_ bannerView: GADBannerView) {
+      print("bannerViewWillPresentScreen")
+    }
+
+    func bannerViewWillDismissScreen(_ bannerView: GADBannerView) {
+      print("bannerViewWillDIsmissScreen")
+    }
+
+    func bannerViewDidDismissScreen(_ bannerView: GADBannerView) {
+      print("bannerViewDidDismissScreen")
+    }
+}

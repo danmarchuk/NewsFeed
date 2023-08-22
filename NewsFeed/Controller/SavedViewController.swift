@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class SavedViewController: UIViewController {
+final class SavedViewController: UIViewController {
     
     private var collectionView: UICollectionView!
 
@@ -84,9 +84,7 @@ extension SavedViewController: UICollectionViewDelegate, UICollectionViewDataSou
         cell.configure(withArticle: currentArticle, dateAndSource: "\(currentArticle.source) - \(currentArticle.datePublishedString)")
         
         cell.bookmarkButton.tag = indexPath.row
-        
-        print(currentArticle.isSaved)
-        
+                
         if currentArticle.isSaved == true {
             cell.bookmarkButton.tintColor = .red
             print(savedArticles[indexPath.row].isSaved)

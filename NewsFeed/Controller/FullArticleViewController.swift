@@ -8,13 +8,18 @@
 import Foundation
 import UIKit
 import CoreData
+import GoogleMobileAds
 
 protocol FullNewsViewControllerDelegate {
     func didUpdateTheNews(_ fullNewsViewController: FullArticleViewController, theArticle: Article)
 }
 
-class FullArticleViewController: UIViewController  {
+final class FullArticleViewController: UIViewController  {
+    // Google ads
+    private var interstitial: GADInterstitialAd?
     
+    let defaults = UserDefaults.standard
+
     private var backButton: UIBarButtonItem!
     private var bookmarkButton: UIBarButtonItem!
     let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
@@ -35,11 +40,38 @@ class FullArticleViewController: UIViewController  {
         // Do any additional setup after loading the view.
         setupNavigationBar()
         setupReadInSourceButton()
+        displayTheAddEachSecondTime()
     }
     
-    func setupReadInSourceButton() {
+    private func displayTheAddEachSecondTime() {
+        let currentCount = defaults.integer(forKey: "openCount") + 1
+        defaults.set(currentCount, forKey: "openCount")
+        
+        let openCount = defaults.integer(forKey: "openCount")
+        if openCount>=2 {
+            defaults.set(0, forKey: "openCount")
+            showAnAdd()
+        }
+    }
+    
+    private func setupReadInSourceButton() {
         fullArticleView.readInSourceButton.addTarget(self, action: #selector(readInSourceButtonTapped(_:)), for: .touchUpInside)
     }
+    
+    private func setupInterstitialAdd() {
+        let request = GADRequest()
+        GADInterstitialAd.load(withAdUnitID: "ca-app-pub-5950465833598200/1473978820",
+                               request: request,
+                               completionHandler: { [self] ad, error in
+            if let error = error {
+                print("Failed to load interstitial ad with error: \(error.localizedDescription)")
+                return
+            }
+            interstitial = ad
+            interstitial?.fullScreenContentDelegate = self}
+        )
+    }
+    
     
     @objc func readInSourceButtonTapped (_ sender: UIButton) {
         guard let unwrappedNews = theArticle else {return}
@@ -78,6 +110,15 @@ class FullArticleViewController: UIViewController  {
         theArticle = unwrappedNews
         
         bookmarkButton.tintColor =  unwrappedNews.isSaved ? .red : .white
-        
+    }
+}
+
+extension FullArticleViewController: GADFullScreenContentDelegate {
+    private func showAnAdd() {
+        if interstitial != nil {
+            interstitial?.present(fromRootViewController: self)
+        } else {
+          print("Ad wasn't ready")
+        }
     }
 }

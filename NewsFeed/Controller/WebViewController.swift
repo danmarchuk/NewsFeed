@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 import SnapKit
 
-class WebViewController: UIViewController {
+final class WebViewController: UIViewController {
     private let webView = WKWebView()
     private let url: URL
     private var xButton: UIBarButtonItem!

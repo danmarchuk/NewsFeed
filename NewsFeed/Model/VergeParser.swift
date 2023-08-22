@@ -9,7 +9,7 @@ import Alamofire
 import SwiftSoup
 import Foundation
 
-class VergeParser {
+final class VergeParser {
     
     func fetchAndParseFeed(completion: @escaping ([Article]?) -> Void) {
         let url = "https://www.theverge.com/rss/index.xml"

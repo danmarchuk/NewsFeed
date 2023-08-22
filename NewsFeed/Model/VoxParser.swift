@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 import SwiftSoup
 
-class VoxParser {
+final class VoxParser {
     
     func fetchAndParseFeed(completion: @escaping ([Article]?) -> Void) {
         let url = "https://www.vox.com/rss/index.xml"

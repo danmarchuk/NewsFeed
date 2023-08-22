@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class BellViewController: UIViewController {
+final class BellViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()

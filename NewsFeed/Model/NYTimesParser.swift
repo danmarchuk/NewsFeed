@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 import SwiftSoup
 
-class NYTimesParser {
+final class NYTimesParser {
     
     func fetchAndParseFeed(completion: @escaping ([Article]?) -> Void) {
         let url = "https://feeds.simplecast.com/54nAGcIl"
